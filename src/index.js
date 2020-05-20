@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+// controlled componentになった。
 class Square extends React.Component {
 
   render() {
@@ -26,6 +27,10 @@ class Board extends React.Component {
   }
 
   handleClick(i) {
+    // イミュータブルにしたいので、constで書いて、新しく設定している。
+    // これにより、巻き戻しの実装が簡単になる。
+    // ミュータブルだとオブジェクトツリーの全体を走査するよ必要がある。
+    // pure componentを構築しやすい。
     const squares = this.state.squares.slice();
     squares[i] = 'X';
     this.setState({ squares: squares });
