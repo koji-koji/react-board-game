@@ -3,19 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 // controlled componentになった。
-class Square extends React.Component {
-
-  render() {
-    return (
-      <button
-        className="square"
-        // this.props.onClick()で、BoardのonClickイベントハンドラをコールする。その結果、handleClickがコールされる
-        onClick={() => this.props.onClick()}
-      >
-        {this.props.value}
-      </button>
-    );
-  }
+// classコンポーネントから関数コンポーネントへの書き換え。
+const  Square = (props) => {
+  return (
+    <button
+      className="square"
+      // this.props.onClick()で、BoardのonClickイベントハンドラをコールする。その結果、handleClickがコールされる
+      onClick={props.onClick()}
+    >
+      {props.value}
+    </button>
+  );
 }
 
 class Board extends React.Component {
