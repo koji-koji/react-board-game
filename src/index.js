@@ -4,7 +4,7 @@ import './index.css';
 
 // controlled componentになった。
 // classコンポーネントから関数コンポーネントへの書き換え。
-const  Square = (props) => {
+const Square = (props) => {
   return (
     <button
       className="square"
@@ -32,7 +32,6 @@ class Board extends React.Component {
     // pure componentを構築しやすい。
     const squares = this.state.squares.slice();
     squares[i] = this.state.xIsNext ? 'X' : 'O';
-    squares[i] = 'X';
     this.setState({
       squares: squares,
       xIsNext: !this.state.xIsNext
@@ -42,6 +41,7 @@ class Board extends React.Component {
   renderSquare(i) {
     return (
       <Square
+        value={this.state.squares[i]}
         onClick={() => {this.handleClick(i)}}
       />
     )
