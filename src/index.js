@@ -20,7 +20,8 @@ class Board extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      squeares: Array(9).fill(null)
+      squeares: Array(9).fill(null),
+      xIsNext: true
     };
   }
 
@@ -30,8 +31,12 @@ class Board extends React.Component {
     // ミュータブルだとオブジェクトツリーの全体を走査するよ必要がある。
     // pure componentを構築しやすい。
     const squares = this.state.squares.slice();
+    squares[i] = this.state.xIsNext ? 'x' : 'O';
     squares[i] = 'X';
-    this.setState({ squares: squares });
+    this.setState({
+      squares: squares,
+      xIsNext: !this.state.xIsNext
+    });
   }
 
   renderSquare(i) {
