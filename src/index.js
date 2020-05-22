@@ -9,7 +9,7 @@ const  Square = (props) => {
     <button
       className="square"
       // this.props.onClick()で、BoardのonClickイベントハンドラをコールする。その結果、handleClickがコールされる
-      onClick={props.onClick()}
+      onClick={props.onClick}
     >
       {props.value}
     </button>
@@ -20,7 +20,7 @@ class Board extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      squeares: Array(9).fill(null),
+      squares: Array(9).fill(null),
       xIsNext: true
     };
   }
@@ -31,7 +31,7 @@ class Board extends React.Component {
     // ミュータブルだとオブジェクトツリーの全体を走査するよ必要がある。
     // pure componentを構築しやすい。
     const squares = this.state.squares.slice();
-    squares[i] = this.state.xIsNext ? 'x' : 'O';
+    squares[i] = this.state.xIsNext ? 'X' : 'O';
     squares[i] = 'X';
     this.setState({
       squares: squares,
@@ -42,7 +42,6 @@ class Board extends React.Component {
   renderSquare(i) {
     return (
       <Square
-        value={this.state.squeares[i]}
         onClick={() => {this.handleClick(i)}}
       />
     )
