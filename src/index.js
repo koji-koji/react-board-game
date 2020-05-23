@@ -69,7 +69,7 @@ class Game extends React.Component {
     // これにより、巻き戻しの実装が簡単になる。
     // ミュータブルだとオブジェクトツリーの全体を走査するよ必要がある。
     // pure componentを構築しやすい。
-    const squares = this.state.squares.slice();
+    const squares = this.state.history.slice(-1)[0];
 
     if (calculateWinner(squares) || squares[i]) {
       return;
