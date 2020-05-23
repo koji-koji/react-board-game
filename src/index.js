@@ -53,23 +53,21 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      history: [
-        {
-          squares: Array(9).fill(null),
-        },
-      ],
+      history: [{squares: Array(9).fill(null),},],
+      stepNumber: 0,
       xIsNext: true,
     };
   }
 
   handleClick(i) {
-    const history = this.state.history;
-    const current = history[history.length - 1];
+    const history = this.state.history.slice(0, this.state.stepNumber + 1);
+    const current = history[this.state.stepNumber];
     // イミュータブルにしたいので、constで書いて、新しく設定している。
     // これにより、巻き戻しの実装が簡単になる。
     // ミュータブルだとオブジェクトツリーの全体を走査するよ必要がある。
     // pure componentを構築しやすい。
-    const squares = this.state.history.slice(-1)[0];
+    // slice()の引数がないときの挙動確認。
+    const squares = current.squares.slice();
 
     if (calculateWinner(squares) || squares[i]) {
       return;
@@ -77,9 +75,17 @@ class Game extends React.Component {
 
     squares[i] = this.state.xIsNext ? 'X' : 'O';
     this.setState({
-      history: history.concat([{squares: squares}]),
+      history: history.concat([{ squares: squares }]),
+      stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
     });
+  }
+
+  jumpTo(step) {
+    this.setState({
+      stepNumber: step,
+      xIsNext: (step % 2) === 0
+    })
   }
 
   render() {
